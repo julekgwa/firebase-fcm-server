@@ -3,40 +3,12 @@ firebase:
   document: users
   serviceKey:
     type: service_account
-    project_id: aboutyou-d722a
-    private_key_id: 5c0bf0d6df1d7ae41c28000bce5b5034dbee5c09
-    private_key: |
-      -----BEGIN PRIVATE KEY-----
-      MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEAaBFMiOH7Zmr
-      ehDkzZPZmtYroJaKWlZdJO6eTMrxhJVhB2AxEp3QdF4Kgqj88fbID1p7N0zEO1Eh
-      yDjvYwArnfc55ZnjMtIlvp2vn5mRNFcBZQjQ6yiXZmY6JFOJuq0FKGdp9HQZmlw7
-      gRGKZTwfUrEA8zxeE2OzBkryh6qYP2DN2P/SMQ+VT0nGVWswIfZ9UpypXva3GRIB
-      ZI0pdEUgWbKLl3KcApxsaFnvgK5QY7I/WMpmb3E9LxsqCVrf7TW5KXhJs5xMQe9h
-      nyTEVzkwQApkDuYYNz0VjdPCEyHjVBujC67tMDFD9mX/z29aLRl4hgiNYGeGw6nq
-      Fn0cNz/JAgMBAAECggEAEQYDIX9lTpz4R8hmRzkDqlakW02rRYDrF1Pp1Z3d0nQt
-      dSvq0thHFJ/Guyr1+mIZiO6scR8wb6qnNUPqjgAPN7qUilbCstTrI5QWpfY6pD3j
-      gJ+B0INcFyoxnsMg7klkVZpYwP8WRlL9x71CBL8eJapM7UQy7gjJE/dr8vyNeIOB
-      ver4acpZJdxoHZwwV5rX+6HM6iHS9+CcNp3F2QMsK8rWBEDDwlcE5/bMxyNB3o6i
-      o/Uiwhgx96+CJXiyWOSlzU5hUsMiq2Apn5e8/JUnxVWgM9XmLueEh8tgAPBqMDNa
-      9xVnob35mGwbprKUctdtBim7ac1ciOfTVuWy/RFzwQKBgQDkSypgbdGnQ+pzrEAd
-      /9Ta87y2XxXFaAojRxwMzHPgF3C2HPTylK+18YyJrCdAg4dlfGOYVLKSG4GRi+Xg
-      FPwKAuGbzOEEgJ943+dk6CRoZI5zW9jnsipGjZxqj5CBh3mgAcrVQ+8JoV2n6FrX
-      Bs4Yqu7O9djowq6p5QJGe7P+jQKBgQDby1SRJUhthpMpfEu5UZ6fHTReSZ9+8yXG
-      pPcqPrtwakgSmd2v7Dawjh8QOI28J945k0s/Dovvggnssw8or6RpVJYADoW15+6E
-      MLNn37M/3ObFj5USJtQjt58Gasz3CzAnU4TpK8pzFgRSBkOzPzpPKzIMozAjRiJ7
-      T1TkpbXFLQKBgQDiqrbik2csOkSYoRfwMUj4NDTUpkgJfqlCKaJyGrWac+uXBd02
-      1eY4MiKltuYqKe3PF9gTMVUzuFfHWS3edTdiAUZb2Oo5/DNaYoVvLQapF95QL4uH
-      UOCkuInrS6vgz9A0zFLFuPOnji5dPlijUsBiwaTmnDbHtDSTvyupK72lKQKBgQC8
-      xaqxKqNFJkL4a3+h/57Lq8qRfIwW/YAhVwfNaamUyEN0bmA/OxJRmw7E4L2ir18m
-      dgI3eyfmofoiKDvJxujfaj2WeOKQNE3fjPBZM4EBRZmSblorB9xFfOyBF3NIbnyC
-      GjJaDTlIlM1LIYQ9y/0ph8Dpp7KtaQwuehlAc65lVQKBgDlHV/AdZZ4Wp4li2JRQ
-      aVvTdkpv1hs1f8XflsVefsO06HfwyU1VHbQXDlDAkE2ZFdvoW04oNuHrp3OSXGu3
-      wMYlQWXkH9n4cYl5I1GuIph/gmeuYnb3tKy2FiI+IJE4aVFYXf2FGXsNi8voORKa
-      onM6jJYLWs9kboJogzpiin1q
-      -----END PRIVATE KEY-----
-    client_email: firebase-adminsdk-jn6a7@aboutyou-d722a.iam.gserviceaccount.com
-    client_id: '117246490219627723254'
-    auth_uri: https://accounts.google.com/o/oauth2/auth
-    token_uri: https://oauth2.googleapis.com/token
-    auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
-    client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-jn6a7%40aboutyou-d722a.iam.gserviceaccount.com
+    project_id: ""
+    private_key_id: ""
+    private_key: ""
+    client_email: ""
+    client_id: ""
+    auth_uri: ""
+    token_uri: ""
+    auth_provider_x509_cert_url: ""
+    client_x509_cert_url: ""
