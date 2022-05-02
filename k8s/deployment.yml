@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jl-ms-firebase-fcm
+  labels:
+    app: backend
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      project: jl-ms-firebase-fcm
+  template:
+    metadata:
+      name: jl-ms-firebase-fcm
+      labels:
+        project: jl-ms-firebase-fcm
+    spec:
+      containers:
+        - name: jl-ms-firebase-fcm
+          image: julekgwa/firebase-fcm-server
+          env:
+            - name: FIREBASE_DOCUMENT
+              valueFrom:
+                configMapKeyRef:
+                  key: firebaseDocument
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_PROVIDER_CERT_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: authProviderX509CertUrl
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_AUTH_URI
+              valueFrom:
+                configMapKeyRef:
+                  key: authUri
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_TOKEN_URI
+              valueFrom:
+                configMapKeyRef:
+                  key: tokenUri
+                  name: jl-ms-firebase-fcm
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: secretKey
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_SERVICE_ACCOUNT
+              valueFrom:
+                secretKeyRef:
+                  key: type
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_PROJECT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: projectId
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_PRIVATE_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: privateKeyId
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: privateKey
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_CLIENT_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  key: clientEmail
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: clientId
+                  name: jl-ms-firebase-fcm
+            - name: FIREBASE_CLIENT_CERT_URL
+              valueFrom:
+                secretKeyRef:
+                  key: clientX509CertUrl
+                  name: jl-ms-firebase-fcm
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jl-ms-firebase-fcm
+spec:
+  selector:
+    project: jl-ms-firebase-fcm
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jl-ms-firebase-fcm
+data:
+  type: ""
+  projectId: ""
+  privateKeyId: ""
+  privateKey: ""
+  clientEmail: ""
+  clientId: ""
+  clientX509CertUrl: ""
+  secretKey: ""
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jl-ms-firebase-fcm
+data:
+  firebaseDocument: users
+  authUri: https://accounts.google.com/o/oauth2/auth
+  tokenUri: https://oauth2.googleapis.com/token
+  authProviderX509CertUrl: https://www.googleapis.com/oauth2/v1/certs

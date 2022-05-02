@@ -1,0 +1,185 @@
+openapi: 3.0.3
+servers:
+  - url: '/api/v1'
+info:
+  description: Schedule firebase push notifications
+  version: 1.0.0
+  title: Firebase Cloud Messaging Server
+paths:
+  /login:
+    post:
+      tags:
+        - Auth
+      operationId: login
+      requestBody:
+          $ref: '#/components/requestBodies/AuthRequestBody'
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        default:
+          description: Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+  /schedule/{id}:
+    post:
+      security:
+        - jwt: []
+      tags:
+        - Schedule
+      description: Schedule firebase notifications for specified tokens
+      operationId: scheduleNotification
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleNotificationBody'
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+        default:
+          description: Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+    put:
+      security:
+        - jwt: []
+      tags:
+        - Schedule
+      description: Schedule firebase notifications for specified tokens
+      operationId: updateNotification
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleNotificationBody'
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+        default:
+          description: Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+    delete:
+      tags:
+        - Schedule
+      security:
+        - jwt: []
+      description: Remove notification by id
+      operationId: deleteNotification
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+        default:
+          description: Failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  requestBodies:
+    AuthRequestBody:
+      description: Firebase user id
+      required: true
+      content:
+         application/json:
+          schema:
+            type: object
+            required:
+              - userId
+            properties:
+              userId:
+                type: string
+    ScheduleNotificationBody:
+      description: A list of push tokens
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - title
+              - body
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+              schedule:
+                type: string
+                description: required repeating schedules
+              repeat:
+                type: boolean
+                default: false
+              year:
+                type: number
+                description: required non repeating schedules
+              month:
+                type: number
+                description: required non repeating schedules
+              day:
+                type: number
+                description: required non repeating schedules
+              hours:
+                type: number
+                description: required non repeating schedules
+              minutes:
+                type: number
+                description: required non repeating schedules
+
+
+  schemas:
+    AuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+    FailureResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    ValidResponse:
+      type: object
+      properties:
+        status:
+          type: number
