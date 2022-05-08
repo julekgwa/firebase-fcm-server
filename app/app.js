@@ -11,6 +11,7 @@ import { StatusCodes } from 'http-status-codes';
 import swaggerUI from 'swagger-ui-express';
 import jwt from 'jsonwebtoken';
 import cors from 'cors';
+import { initializeSentry } from './helpers/utils.js';
 
 const SECRET_KEY = config.get('secretKey');
 
@@ -42,6 +43,7 @@ const makeApp = async () => {
   const connect = connector(routes, apiDescription);
   const app = express();
 
+  initializeSentry(app);
   app.use(express.json());
   app.use(cors());
   app.use(
@@ -54,6 +56,7 @@ const makeApp = async () => {
       },
     }),
   );
+
   app.use((err, req, res, next) => {
 
     res.status(err.status || StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -67,6 +70,7 @@ const makeApp = async () => {
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(apiDescription));
 
   connect(app);
+
   return app;
 
 };

@@ -68,6 +68,7 @@ const sendMessage = async (uid, title, body, scheduleId, repeat) => {
     notification: {
       title,
       body,
+      channelId: 'default',
     },
   };
 

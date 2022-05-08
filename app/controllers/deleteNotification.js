@@ -1,6 +1,7 @@
 import schedule from 'node-schedule';
 import { ERROR_MSG } from '../helpers/utils.js';
 import { StatusCodes } from 'http-status-codes';
+import * as Sentry from '@sentry/node';
 
 export const deleteNotification = async (req, res) => {
 
@@ -23,6 +24,7 @@ export const deleteNotification = async (req, res) => {
 
   } catch (err) {
 
+    Sentry.captureException(err);
     const message = err.message || ERROR_MSG;
 
     res.status(StatusCodes.NOT_FOUND);

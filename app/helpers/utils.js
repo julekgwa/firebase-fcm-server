@@ -1,4 +1,9 @@
 import schedule from 'node-schedule';
+import config from 'config';
+import * as Sentry from '@sentry/node';
+import * as Tracing from '@sentry/tracing';
+
+const SENTRY_DNS = config.get('sentry.dns');
 
 export const ERROR_MSG =
   'Looks like the server is taking too long to respond, please try again later';
@@ -28,6 +33,31 @@ export const getScheduleDate = (params) => {
 
   }
 
-  return params.schedule;
+  const scheduleDate = new Date(Date.now());
+
+  scheduleDate.setHours(params.hours);
+  scheduleDate.setMinutes(params.minutes);
+  const hours2 = scheduleDate.getHours();
+  const minutes2 = scheduleDate.getMinutes();
+  const scheduled = `${minutes2} ${hours2} * * *`;
+
+  return scheduled;
+
+};
+
+export const initializeSentry = (app) => {
+
+  Sentry.init({
+    dsn: SENTRY_DNS,
+    integrations: [
+      new Sentry.Integrations.Http({ tracing: true }),
+      new Tracing.Integrations.Express({ app }),
+    ],
+    tracesSampleRate: 1.0,
+  });
+
+  app.use(Sentry.Handlers.requestHandler());
+  app.use(Sentry.Handlers.tracingHandler());
+  app.use(Sentry.Handlers.errorHandler());
 
 };

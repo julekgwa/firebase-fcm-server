@@ -2,7 +2,7 @@ import { sendMessage } from '../clients/firebaseClient.js';
 import schedule from 'node-schedule';
 import { ERROR_MSG, getScheduleDate } from '../helpers/utils.js';
 import { StatusCodes } from 'http-status-codes';
-
+import * as Sentry from '@sentry/node';
 export const updateNotification = (req, res) => {
 
   try {
@@ -36,6 +36,7 @@ export const updateNotification = (req, res) => {
 
   } catch (error) {
 
+    Sentry.captureException(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: error.message || ERROR_MSG,
     });
