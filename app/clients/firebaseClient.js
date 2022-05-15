@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import FCM from 'fcm-node';
 import { randomUUID } from 'crypto';
 // import { cancelNonRepeatSchedule } from '../helpers/utils.js';
-
 const SECRET_KEY = config.get('secretKey');
 const serviceAccountKey = config.get('firebase.serviceKey');
 const dbCollection = config.get('firebase.document');
@@ -68,7 +67,10 @@ const sendMessage = async (uid, title, body, scheduleId, repeat) => {
     notification: {
       title,
       body,
-      channelId: 'default',
+      icon: 'ic_stat_name',
+      smallIcon: 'ic_stat_name',
+      largeIcon: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
+      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
     },
   };
 
