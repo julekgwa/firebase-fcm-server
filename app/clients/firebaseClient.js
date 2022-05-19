@@ -4,7 +4,7 @@ import config from 'config';
 import jwt from 'jsonwebtoken';
 import FCM from 'fcm-node';
 import { randomUUID } from 'crypto';
-// import { cancelNonRepeatSchedule } from '../helpers/utils.js';
+
 const SECRET_KEY = config.get('secretKey');
 const serviceAccountKey = config.get('firebase.serviceKey');
 const dbCollection = config.get('firebase.document');
@@ -34,6 +34,12 @@ const getUserTokens = async (uid) => {
 
 const addNotification = (uid, title, body ) => {
 
+  if (!uid) {
+
+    return;
+
+  }
+
   const userRef = usersCollection.doc(uid);
 
   if (!userRef) {
@@ -52,9 +58,47 @@ const addNotification = (uid, title, body ) => {
 
 };
 
-const sendMessage = async (uid, title, body, scheduleId, repeat) => {
+const usersTokens = async () => {
 
-  const tokens = await getUserTokens(uid);
+  const users = await usersCollection.get();
+
+  if (users.empty) {
+
+    return;
+
+  }
+
+  const tokens = [];
+
+  users.forEach((doc) => {
+
+    if (!doc.data().schedule) {
+
+      if (doc.data().tokens) {
+
+        tokens.push(...doc.data().tokens);
+
+      }
+
+    }
+
+  });
+
+  return tokens;
+
+};
+
+const sendWeeklyNotification = async () => {
+
+  const tokens = await usersTokens();
+
+  await sendMessage('', 'Weekly', 'Testing weekly notifications', tokens);
+
+};
+
+const sendMessage = async (uid, title, body, tkns = null) => {
+
+  const tokens = tkns || await getUserTokens(uid);
 
   if (!tokens) {
 
@@ -64,14 +108,20 @@ const sendMessage = async (uid, title, body, scheduleId, repeat) => {
 
   const message = {
     registration_ids: tokens,
-    notification: {
-      title,
-      body,
-      icon: 'ic_stat_name',
-      smallIcon: 'ic_stat_name',
-      largeIcon: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
+    data: {
+      notifee: JSON.stringify({
+        body: body,
+        title: title,
+      }),
     },
+    // notification: {
+    //   title,
+    //   body,
+    //   icon: 'ic_stat_name',
+    //   smallIcon: 'ic_stat_name',
+    //   largeIcon: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
+    //   imageUrl: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
+    // },
   };
 
   fcm.send(message, (err) => {
@@ -106,4 +156,8 @@ const authUserById = async (id) => {
 
 };
 
-export { sendMessage, authUserById };
+export {
+  sendMessage,
+  authUserById,
+  sendWeeklyNotification,
+};

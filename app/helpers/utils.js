@@ -2,6 +2,7 @@ import schedule from 'node-schedule';
 import config from 'config';
 import * as Sentry from '@sentry/node';
 import * as Tracing from '@sentry/tracing';
+import { sendWeeklyNotification } from '../clients/firebaseClient.js';
 
 const SENTRY_DNS = config.get('sentry.dns');
 
@@ -59,5 +60,15 @@ export const initializeSentry = (app) => {
   app.use(Sentry.Handlers.requestHandler());
   app.use(Sentry.Handlers.tracingHandler());
   app.use(Sentry.Handlers.errorHandler());
+
+};
+
+export const createDailySchedule = (cron) => {
+
+  schedule.scheduleJob(cron, function() {
+
+    sendWeeklyNotification();
+
+  });
 
 };

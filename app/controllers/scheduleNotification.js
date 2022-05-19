@@ -20,8 +20,6 @@ export const scheduleNotification = (req, res) => {
           req.user.id,
           req.body.title,
           req.body.body,
-          notificationId,
-          req.body.repeat,
         );
 
       });
