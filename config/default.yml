@@ -4,41 +4,13 @@ sentry:
 firebase:
   document: users
   serviceKey:
-    type: service_account
-    project_id: aboutyou-d722a
-    private_key_id: ee9c83044c7486746f907eb3a4b8750610bde9f5
-    private_key: |
-      -----BEGIN PRIVATE KEY-----
-      MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDR3k25/paMYmu+
-      DaWMVz/95+NOLeFtTKVdwzZYV/kxfzNcrOKhpimvcouxcXrM6MN0v2JZ3aIc35HG
-      LR3jtgAu3dqq6w69cq4iaqTcb1rtv/LW60zYEVihSwo/O2/WgRgLh3pJjwGHgnby
-      QgCQMTamaS682UfeYl6COkTB58ftznQgFVABw7sCW2yNWg8eu1s9kh2Flj5VZ2Dt
-      G2VhbKV8RsApeLd8DQCbRxavsjSW1u9hj1H53NsdaczgrSdyWAnmyutrxbk9fxpy
-      BVcrxqzBvKOTHbdcxmwDK/UcQwuOqyqibI7K2NV+Yx9V1KY4PIzEcNbRmKZFcj5U
-      KTYoA/NzAgMBAAECggEAVD1JMbkxMNRorvbHVpfHBeHIaZ8c90RmtEYhUECvs+B8
-      +1wh9ATAgr4VuHn2cr2Thw8zKSM/aRuMZeHCN57cX/OJTEXhusWHhCUOW7UO6JO9
-      o+r7A1ejHcsDJ/Jxp8ZVonsU6OXQFVaW7BL2Kuq2JwHdUsxcfrU5fkhpRPQGWjtj
-      9btDX0agsqC8SCuDlpuhPU19aMjE+QQNHBCII6T3ZYzOldvmBjqyQs4iJqR7E8N4
-      HoE/SkZVfCpxil/9gYGF4HeI5+Ivt/xMlgATDpqnqUgjRdI3Wag528sMvb1nO2EC
-      yl9b5X/typ92WN7X1hgnD7uKPykAF2aewkHISvyl4QKBgQD4fUPVvMQrbKQGJlKl
-      dq6CfWV03ewedjCmDZnnwRCqqzT71ui+Zb7XyGRouWH0h5dtFwnvKt1nRRciQR2T
-      T+5jRe9BRF10exl2rZHEk6wkBcZStZw1xdPMoZrQHcXZ1TbsOY1ULCrGLoUjJ4nQ
-      Mua7BbmQwcqT9gjqUREEr2oe6wKBgQDYNjOUwPWsfrdkIsr2VedIu6vdFhPo2ffc
-      y97zg3cP/NcaddgzxH6KUesPE4CPi4j24Ev9qavISoiuCnUhF5TEmhI07rg/Ne4/
-      I7e0AYT032MhJEx1HWxjqu8+e7bQwD6QAWxkq+qn4QMDocuKH+IZXu5zwS5JHWJM
-      5kOhPbIrmQKBgQCj+Y19Cu7stOlcQYfCNpob9AGyaAu7YkTiHxGTtHx6EzaIhZ3a
-      nqucG1nfHY49XgiX7V8Z21B1KEuGyC9rGZD3I5wplqKRDfaUsR8C+Gvc7Y6c38kw
-      VtZYL8BIW41HHQL8SVIw3GBxnRswQpQXtq85dSKqGqfCkdX6QfqX++VsdwKBgQDL
-      blwkB1ZgYa3t8uqi0nrWLXZsg9xhx8x2HAB/gN+i1FQT2nN9adFiFeej/MaGyVQq
-      bSoy1tUBlFd74e0JIOXiAdFFqqMDHpw3HkU3ggJ2YEUmJsAlpXSZZnjKgp6lVWzI
-      E/7HzhXwtT8fyLj5EjyrgG29zjLdql8WWcWiTal5aQKBgQDkp3j6Err6MCnMZPKy
-      wQutNaARgA3fLkhaMlCwb2Jcoma8eCqDwJ8ib5LGpvmXE5gbxP01Cuv+3TX/burZ
-      bqPN33UZhAOwtXB4sJ0GXF6iqPxTUhD+72333dcFYt0Ci/puEbwG+uuKug+z6i3h
-      sybBsHY78Cpu6tFODn45SM+PDQ==
-      -----END PRIVATE KEY-----
-    client_email: firebase-adminsdk-soeji@aboutyou-d722a.iam.gserviceaccount.com
-    client_id: '117540504025034487152'
-    auth_uri: https://accounts.google.com/o/oauth2/auth
-    token_uri: https://oauth2.googleapis.com/token
-    auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
-    client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-soeji%40aboutyou-d722a.iam.gserviceaccount.com
+    type:
+    project_id:
+    private_key_id:
+    private_key:
+    client_email:
+    client_id:
+    auth_uri:
+    token_uri:
+    auth_provider_x509_cert_url:
+    client_x509_cert_url:
