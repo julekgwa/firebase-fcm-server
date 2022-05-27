@@ -63,12 +63,27 @@ export const initializeSentry = (app) => {
 
 };
 
-export const createDailySchedule = (cron) => {
+export const createDailySchedule = (cron, fn) => {
 
   schedule.scheduleJob(cron, function() {
 
-    sendWeeklyNotification();
+    if (fn) {
+
+      fn();
+
+    } else {
+
+      sendWeeklyNotification();
+
+    }
 
   });
+
+};
+
+export const dateInPast = (firstDate, secondDate) => {
+
+  // eslint-disable-next-line no-magic-numbers
+  return firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0);
 
 };

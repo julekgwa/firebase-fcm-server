@@ -4,8 +4,10 @@ import config from 'config';
 import jwt from 'jsonwebtoken';
 import FCM from 'fcm-node';
 import { randomUUID } from 'crypto';
+import { dateInPast } from '../helpers/utils.js';
 
 const SECRET_KEY = config.get('secretKey');
+const NUM_DAYS = 7;
 const serviceAccountKey = config.get('firebase.serviceKey');
 const dbCollection = config.get('firebase.document');
 const fcm = new FCM(serviceAccountKey);
@@ -92,7 +94,57 @@ const sendWeeklyNotification = async () => {
 
   const tokens = await usersTokens();
 
-  await sendMessage('', 'Weekly', 'Testing weekly notifications', tokens);
+  await sendMessage('', 'Smoking Schedule', 'Add a smoking schedule', tokens);
+
+};
+
+const deleteNotifications = async () => {
+
+  const users = await usersCollection.get();
+
+  if (users.empty) {
+
+    return;
+
+  }
+
+  users.forEach((doc) => {
+
+    if (doc.data().notifications) {
+
+      const now = new Date();
+
+      now.setDate(now.getDate() - NUM_DAYS);
+      const notifications = doc.data().notifications;
+
+      for (const key of Object.keys(notifications)) {
+
+        if (notifications[key].time) {
+
+          const d = new Date(notifications[key].time);
+
+          if (dateInPast(d, now)) {
+
+            delete notifications[key];
+
+          }
+
+        }
+
+      }
+      const userRef = usersCollection.doc(doc.id);
+
+      if (userRef) {
+
+        userRef.update({
+          ['notifications']: notifications,
+        });
+
+      }
+
+    }
+
+  });
 
 };
 
@@ -114,14 +166,6 @@ const sendMessage = async (uid, title, body, tkns = null) => {
         title: title,
       }),
     },
-    // notification: {
-    //   title,
-    //   body,
-    //   icon: 'ic_stat_name',
-    //   smallIcon: 'ic_stat_name',
-    //   largeIcon: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
-    //   imageUrl: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
-    // },
   };
 
   fcm.send(message, (err) => {
@@ -160,4 +204,5 @@ export {
   sendMessage,
   authUserById,
   sendWeeklyNotification,
+  deleteNotifications,
 };
