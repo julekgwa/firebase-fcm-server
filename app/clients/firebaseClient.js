@@ -2,13 +2,12 @@ import admin from 'firebase-admin';
 import { getFirestore } from 'firebase-admin/firestore';
 import config from 'config';
 import jwt from 'jsonwebtoken';
-import FCM from 'fcm-node';
 import { randomUUID } from 'crypto';
-// import { cancelNonRepeatSchedule } from '../helpers/utils.js';
+import { sendPushNotification } from '../helpers/utils.js';
+import * as Sentry from '@sentry/node';
 const SECRET_KEY = config.get('secretKey');
 const serviceAccountKey = config.get('firebase.serviceKey');
 const dbCollection = config.get('firebase.document');
-const fcm = new FCM(serviceAccountKey);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccountKey),
@@ -62,30 +61,16 @@ const sendMessage = async (uid, title, body, scheduleId, repeat) => {
 
   }
 
-  const message = {
-    registration_ids: tokens,
-    notification: {
-      title,
-      body,
-      icon: 'ic_stat_name',
-      smallIcon: 'ic_stat_name',
-      largeIcon: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/aboutyou-d722a.appspot.com/o/icon.png?alt=media&token=bd427ab7-2444-4292-9bc5-3bc180bb74e6',
-    },
-  };
+  sendPushNotification(tokens, title, body).then((res) => {
 
-  fcm.send(message, (err) => {
-
-    if (err) {
-
-      console.log('Failed to send message', err);
-      return;
-
-    }
     addNotification(uid, title, body);
-    // !repeat && cancelNonRepeatSchedule(scheduleId)
 
-  });
+  })
+    .catch((e) => {
+
+      Sentry.captureException(e);
+
+    });
 
 };
 

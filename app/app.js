@@ -10,6 +10,7 @@ import { updateNotification } from './controllers/updateNotification.js';
 import { StatusCodes } from 'http-status-codes';
 import swaggerUI from 'swagger-ui-express';
 import jwt from 'jsonwebtoken';
+import morgan from 'morgan';
 import cors from 'cors';
 import { initializeSentry } from './helpers/utils.js';
 
@@ -45,6 +46,7 @@ const makeApp = async () => {
 
   initializeSentry(app);
   app.use(express.json());
+  app.use(morgan('tiny'));
   app.use(cors());
   app.use(
     OpenApiValidator.middleware({
